@@ -223,7 +223,6 @@ curl -s 'https://aurora-applied-aiml-engineer.onrender.com/insights' | python -m
 - **Conflicting small-integer facts** → Don’t pick a single value; keep the honest fallback or (future enhancement) answer with a **range + citation**.  
 - **Suspicious timestamps** → Prefer messages that include a **year**; otherwise treat as ambiguous or return a best-effort normalized date with caution.
 
----
 
 ### 🔬 Drill-down workflow
 
