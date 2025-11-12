@@ -4,6 +4,8 @@
 
 **🔑 Primary endpoint:** `GET /ask?q=...` → returns `{ "answer": "..." }`
 
+**🎥 Video recording:** https://drive.google.com/file/d/1RTp3RcGn72gTF_cRWFd34TVl7B8zBfpH/view?usp=sharing
+
 > A minimal, production-ready web service that reads the assignment’s `/messages` API, retrieves relevant snippets, and extracts answers for date / small-count / favorites-list questions. If the fact isn’t in the data, it responds with a clear fallback—no guessing.
 
 ## 🔗 Endpoints
