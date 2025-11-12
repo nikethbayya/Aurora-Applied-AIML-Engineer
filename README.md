@@ -10,8 +10,10 @@
 - Health: `/health`
 - Docs (Swagger): `/docs`
 - Ask (example): `/ask?q=When%20is%20Layla%20planning%20her%20trip%20to%20London%3F`
+- Refresh index: `POST /refresh`
 - Insights: `/insights`
-- Debug tools: `/search?term=...`, `/members`, `/debug?q=...`, `/probe/cars[?member=...]`
+- Debug tools: `/members`, `/debug?q=...`, `/probe/cars[?member=...]`
+
 
 ### Debug/Explainability
 - `GET /members` → member counts seen in data (if present)
@@ -192,7 +194,7 @@ curl -s 'https://aurora-applied-aiml-engineer.onrender.com/insights' | python -m
 ```
 
 ### Example output (your run may differ):
-```bash
+```json
 {
   "summary": [
     {
@@ -212,7 +214,6 @@ curl -s 'https://aurora-applied-aiml-engineer.onrender.com/insights' | python -m
     }
   ]
 }
-
 ```
 
 ### 🧭 How to interpret (decision guide)
@@ -232,9 +233,13 @@ curl -s 'https://aurora-applied-aiml-engineer.onrender.com/insights' | python -m
 ```
 **Locate raw evidence**
 ```bash
-curl 'https://aurora-applied-aiml-engineer.onrender.com/search?term=car'
+# Keyword/theme-only retrieval (uses /debug to surface top evidence)
+curl 'https://aurora-applied-aiml-engineer.onrender.com/debug?q=restaurants'
+
+# Member + theme (bias retrieval toward the right context)
+curl 'https://aurora-applied-aiml-engineer.onrender.com/debug?q=Amira%20restaurants'
 ```
-**Reproduce the retrieval context**
+**Reproduce the retrieval context (evidence)**
 ```bash
 curl 'https://aurora-applied-aiml-engineer.onrender.com/debug?q=How%20many%20cars%20does%20Vikram%20Desai%20have%3F'
 ```
@@ -244,7 +249,8 @@ curl 'https://aurora-applied-aiml-engineer.onrender.com/probe/cars?member=Vikram
 ```
 **Explain the final answer**
 ```bash
-curl 'https://aurora-applied-aiml-engineer.onrender.com/ask?q=How%20many%20cars%20does%20Vikram%20Desai%20have%3F&explain=1'
+# Use the exact question with /debug to see parsed intent + top_docs evidence
+curl 'https://aurora-applied-aiml-engineer.onrender.com/debug?q=How%20many%20cars%20does%20Vikram%20Desai%20have%3F'
 ```
 > This sequence demonstrates that a “no answer” result is a **data reality**, not a bug.
 
